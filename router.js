@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var url = require ('url');
+var adr = 'http://localhost:3000/route/homepage';
+var q = url.parse(adr,true);
+
 
 const credential = {
     email: "admin@gmail.com",

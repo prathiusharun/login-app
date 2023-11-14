@@ -5,6 +5,8 @@ const session = require('express-session');
 const {v4:uuidv4} =require('uuid');
 
 const router =  require('./router');
+const { Script } = require('vm');
+
 
 
 const app = express();
@@ -14,9 +16,15 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 
+
 //load static assets
 app.use('/static',express.static(path.join(__dirname,'public')));
 app.use('/public/assets',express.static(path.join(__dirname,'public/assets')));
+
+
+
+
+
 
 app.use(session({
    secret:uuidv4(),
@@ -31,5 +39,26 @@ app.get('/',(req,res)=>{
    //res.send('hello');
 
 })
+app.get('/', (req, res) => {
+   res.render('index', { title: 'Home Page' });
+});
+
+app.get('/login', (req, res) => {
+   res.sendFile(__dirname + '/views/index.ejs');
+});
+
+app.post('/login', (req,res) =>{
+   if(user){
+      res.redirect('/')
+   }else{
+      res.redirect('login');
+   }
+})
+
+app.get('/', (req, res) => {
+   res.render('index', { title: 'Home Page' });
+});
+
+
 app.listen(port, ()=>{console.log("Listening to the server on http://localhost:3000");
 });
