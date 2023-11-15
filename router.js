@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var url = require ('url');
-var adr = 'http://localhost:3000/route/homepage';
-var q = url.parse(adr,true);
+//var url = require ('url');
+//var adr = 'http://localhost:3000/route/homepage';
+//var q = url.parse(adr,true);
 
 
 const credential = {
@@ -14,11 +14,36 @@ const credential = {
 router.post('/login',(req,res)=>{
     if(req.body.email == credential.email && req.body.password == credential.password){
         req.session.user = req.body.email;
-       // res.redirect('/dashboard');
-       res.end("Login successful..!");
+        res.redirect('/route/dashboard');
+      // res.redirect("/");
     }else{
         res.end("Invalid username or password");
 
     }
 });
+
+
+// route for dashboard
+router.get('/dashboard', (req,res) =>{
+    if(req.session.user){
+        res.render('dashboard', {user: req.session.user})
+
+    }else{
+        res.send("Unauthorized user");
+    }
+})
+
+// route for logout
+router.get('/logout', (req,res) =>{
+    req.session.destroy(function(err){
+        if(err){
+            console.log(err);
+            res.send("Error");
+        }else{
+          res.render('base',{title: "Express",logout:"logout successful"});
+            
+        }
+    })
+});
+
 module.exports = router;

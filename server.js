@@ -33,20 +33,29 @@ app.use(session({
 }));
 
 app.use('/route', router);
+
 //home route
+
 app.get('/',(req,res)=>{
    res.render('base',{ title: "Login System" });
    //res.send('hello');
 
 })
-app.get('/', (req, res) => {
-   res.render('index', { title: 'Home Page' });
-});
 
+/*
 app.get('/login', (req, res) => {
    res.sendFile(__dirname + '/views/index.ejs');
 });
+*/
+/*
+app.get('/home', (req, res) => {
+   res.render('/index', { title: 'Home Page' });
+});
 
+*/
+
+
+/*
 app.post('/login', (req,res) =>{
    if(user){
       res.redirect('/')
@@ -54,8 +63,24 @@ app.post('/login', (req,res) =>{
       res.redirect('login');
    }
 })
-
+*/
+/*
 app.get('/', (req, res) => {
+   res.render('home', { title: 'Home Page' });
+});
+
+*/
+/*
+app.get('/', (req,res) =>{
+   if(req.session.user){
+      res.render('index')
+     //res.render('/');
+   }else{
+      res.redirect('/login');
+   }
+})
+*/
+app.get('/login', (req, res) => {
    res.render('index', { title: 'Home Page' });
 });
 
