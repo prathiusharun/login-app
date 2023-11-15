@@ -8,7 +8,8 @@
     "uuid": "^9.0.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "node server.js"
   },
   "name": "login-app-node",
   "version": "1.0.0",
